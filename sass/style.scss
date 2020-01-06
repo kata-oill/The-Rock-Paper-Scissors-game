@@ -48,11 +48,17 @@ header > h1 {
 	font-size: 40px;
 	color: white; 
 }
-.result > p, .score-message {
+.result > p {
 	font-size: 40px;
 	color: white;
 	text-align: center;
 	font-family: "Noto Sans JP";
+}
+.score-message {
+	padding: 10px;
+	font-size: 18px;
+	text-align: center;
+	color: black;
 }
 .choices {
 	text-align: center;
@@ -141,7 +147,7 @@ button:hover, button:active {
 .modal {
 	display: none;
 	background: #fff;
-	width: 200px;
+	width: auto;
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -163,6 +169,7 @@ button:hover, button:active {
 	
 	header {
 		font-family: "Noto Sans JP";
+		text-align: center;
 		font-size: 20px;
 		line-height: 30px;
 		min-height: 30px;
