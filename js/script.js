@@ -2,29 +2,23 @@
 
 // global variables
 
-let userScore = 0;
-let computerScore = 0;
+var params = {
+  userScore: 0,
+  computerScore: 0,
+  userScore_span: document.getElementById('user-score'),
+  computerScore_span: document.getElementById('computer-score'),
+  scoreBoard_div: document.querySelector('.score-board'),
+  result_p: document.getElementById('round-result'),
+  rock_div: document.getElementById('rock'),
+  paper_div: document.getElementById('paper'),
+  scissors_div: document.getElementById('scissors'),
+  newGame_div: document.getElementById('new-game'),
+  roundAsk: '',
+  gameStatus: 0,
+  roundInfo: document.getElementById('round-number'),
+  gameScore: document.getElementById('score-message')
 
-let userScore_span = document.getElementById('user-score');
-let computerScore_span = document.getElementById('computer-score');
-
-const scoreBoard_div =document.querySelector('.score-board');
-const result_p = document.getElementById('round-result');
-
-const rock_div = document.getElementById('rock');
-const paper_div = document.getElementById('paper');
-const scissors_div = document.getElementById('scissors');
-
-const newGame_div = document.getElementById('new-game');
-
-let roundAsk;
-let gameStatus = 0;
-
-let roundInfo = document.getElementById('round-number');
-
-let gameScore = document.getElementById('score-message');
-
-// function drawing random number
+}
 
 function getComputerChoice() {
   const choices = ['paper', 'rock', 'scissors'];
@@ -35,22 +29,24 @@ function getComputerChoice() {
 // function which inform about round result
 
 function win (userMove, computerMove) {
-  userScore++;
-  userScore_span.innerHTML = userScore;
-  result_p.innerHTML = ' YOU PLAYED: ' + userMove + ' COMPUTER PLAYED: ' + computerMove + '. YOU WIN!';
+  params.userScore++;
+  params.userScore_span.innerHTML = params.userScore;
+  params.result_p.innerHTML = ' YOU PLAYED: ' + userMove + ' COMPUTER PLAYED: ' + computerMove + '. YOU WIN!';
 }
 
 function lose (userMove, computerMove) {
-  computerScore++;
-  computerScore_span.innerHTML = computerScore;
-  result_p.innerHTML = ' YOU PLAYED: ' + userMove + ' COMPUTER PLAYED: ' + computerMove + '. YOU LOSE!';
+  params.computerScore++;
+  params.computerScore_span.innerHTML = params.computerScore;
+  params.result_p.innerHTML = ' YOU PLAYED: ' + params.userMove + ' COMPUTER PLAYED: ' + params.computerMove + '. YOU LOSE!';
 }
 
 function draw (userMove, computerMove) {
-  result_p.innerHTML = ' YOU PLAYED: ' + userMove + ' COMPUTER PLAYED: ' + computerMove + '. ITS A DRAW!';
+  params.result_p.innerHTML = ' YOU PLAYED: ' + params.userMove + ' COMPUTER PLAYED: ' + params.computerMove + '. ITS A DRAW!';
 }
 
 // function comparing player's move to the computer's move
+
+
 
 function playerMove (userChoice) {
   const computerChoice = getComputerChoice();
@@ -88,24 +84,27 @@ function playerMove (userChoice) {
 
 playerMove();
 
+
 // function removing the strings
 
 function gameover() {
-      result_p.innerHTML = ('');
-      roundInfo.innerHTML = ('');
-      gameScore.innerHTML = ('Game over, please press the new game button!');
+      params.result_p.innerHTML = ('');
+      params.roundInfo.innerHTML = ('');
+      params.gameScore.innerHTML = ('Game over, please press the new game button!');
 }
+
 
 // function with user's moves
 
+
 function main() {
   console.log('MAIN');
-  rock_div.addEventListener('click', function() {
-    if(gameStatus == 0){
+  params.rock_div.addEventListener('click', function() {
+    if(params.gameStatus == 0){
       alert('Click the button below to start the game!');
     }
     else{
-      if (userScore === roundAsk || computerScore === roundAsk) {
+      if (params.userScore === params.roundAsk || params.computerScore === params.roundAsk) {
         gameover();
       }
       else {
@@ -114,12 +113,12 @@ function main() {
      } 
   })
 
-  paper_div.addEventListener('click', function() {
-    if(gameStatus == 0){
+  params.paper_div.addEventListener('click', function() {
+    if(params.gameStatus == 0){
       alert('Click the button below to start the game!');
     }
     else{
-      if (userScore === roundAsk || computerScore === roundAsk) {
+      if (params.userScore === params.roundAsk || params.computerScore === params.roundAsk) {
       gameover();
       }
       else {
@@ -129,12 +128,12 @@ function main() {
     
   })
 
-  scissors_div.addEventListener('click', function() {
-    if(gameStatus == 0){
+  params.scissors_div.addEventListener('click', function() {
+    if(params.gameStatus == 0){
       alert('Click the button below to start the game!');
     }
     else {
-      if (userScore === roundAsk || computerScore === roundAsk) {
+      if (params.userScore === params.roundAsk || params.computerScore === params.roundAsk) {
         gameover();
       }
       else {
@@ -147,15 +146,20 @@ function main() {
 main();
 
 
+
+
+
+
+
 // function asking user about number of rounds
 
-newGame_div.addEventListener('click', function() {
-    roundAsk = window.prompt('Type number of rounds:');
+params.newGame_div.addEventListener('click', function() {
+    params.roundAsk = window.prompt('Type number of rounds:');
     
-    if (roundAsk > 0) {
-      gameStatus = 1;
-      roundAsk = parseInt(roundAsk);
-      roundInfo.innerHTML = ('We are playing to ' + roundAsk + ' wins');
+    if (params.roundAsk > 0) {
+      params.gameStatus = 1;
+      params.roundAsk = parseInt(params.roundAsk);
+      params.roundInfo.innerHTML = ('We are playing to ' + params.roundAsk + ' wins');
     } 
     else {
       alert('Wrong value!');
@@ -166,25 +170,25 @@ newGame_div.addEventListener('click', function() {
 // function reseting the score 
 
 function reset() {
-    userScore = 0;
-    computerScore = 0;
+    params.userScore = 0;
+    params.computerScore = 0;
 
   console.log('Reset');
-    userScore_span.innerHTML = userScore;
-    computerScore_span.innerHTML = computerScore;
-    result_p.innerHTML = ('Lets start the game!');
-    gameScore.innerHTML = ('');
+    params.userScore_span.innerHTML = params.userScore;
+    params.computerScore_span.innerHTML = params.computerScore;
+    params.result_p.innerHTML = ('Lets start the game!');
+    params.gameScore.innerHTML = ('');
 }
 
 
 // entire game winner function
 
 function winner() {
-    if (userScore === roundAsk) {
-      gameScore.innerHTML = ('YOU WON THE ENTIRE GAME!!!');
+    if (params.userScore === params.roundAsk) {
+      params.gameScore.innerHTML = ('YOU WON THE ENTIRE GAME!!!');
 
-    } else if (computerScore === roundAsk) {
-      gameScore.innerHTML = ('YOU LOSE THE ENTIRE GAME!!!');
+    } else if (params.computerScore === params.roundAsk) {
+      params.gameScore.innerHTML = ('YOU LOSE THE ENTIRE GAME!!!');
     }
 }
 
