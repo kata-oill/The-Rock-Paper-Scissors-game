@@ -16,8 +16,23 @@ var params = {
   roundAsk: '',
   gameStatus: 0,
   roundInfo: document.getElementById('round-number'),
-  gameScore: document.getElementById('score-message')
-
+  gameScore: document.getElementById('score-message'),
+  progress: [
+    {     
+      roundnumber: '1', 
+      playermove: 'scissors', 
+      computermove: 'rock',
+      roundscore: '0-1',
+      gamescore: '2-1'
+    },
+    { 
+      roundnumber: '1', 
+      playermove: 'scissors', 
+      computermove: 'rock',
+      roundscore: '0-1',
+      gamescore: '2-1'
+    }
+  ]
 }
 
 function getComputerChoice() {
@@ -45,8 +60,6 @@ function draw (userMove, computerMove) {
 }
 
 // function comparing player's move to the computer's move
-
-
 
 function playerMove (userChoice) {
   const computerChoice = getComputerChoice();
@@ -205,6 +218,34 @@ var modals = document.querySelectorAll('.modal');
     });
   }
 
+// generate table with scores
+
+let table = document.querySelector("table");
+let data = Object.keys(params.progress[0]);
+
+function generateTableHead(table, data) {
+  console.log('generateTableHead');
+  let thead = table.createTHead();
+  let row = thead.insertRow();
+  for (let key of data) {
+    let th = document.createElement("th");
+    let text = document.createTextNode(key);
+    th.appendChild(text);
+    row.appendChild(th);
+  }
+}
+
+function generateTable(table, data) {
+  console.log('generateTable');
+  for (let element of data) {
+    let row = table.insertRow();
+    for (key in element) {
+      let cell = row.insertCell();
+      let text = document.createTextNode(element[key]);
+      cell.appendChild(text);
+    }
+  }
+}
 
 // function asking user about number of rounds
 
@@ -243,24 +284,19 @@ function winner() {
       //params.gameScore.innerHTML = ('YOU WON THE ENTIRE GAME!!!');
       showModal();
       params.gameScore.innerHTML = ('YOU WON THE ENTIRE GAME!!!');
+      generateTableHead(table, data);
+      generateTable(table, params.progress);
+      
 
     } else if (params.computerScore === params.roundAsk) {
       //
       showModal();
       params.gameScore.innerHTML = ('YOU LOSE THE ENTIRE GAME!!!');
+      generateTableHead(table, data);
+      generateTable(table, params.progress);
+      
     }
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 
