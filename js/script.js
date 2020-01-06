@@ -193,7 +193,7 @@ for(var i = 0; i < closeButtons.length; i++){
   closeButtons[i].addEventListener('click', hideModal);
 }
 
-// close modal after click on overlay. 
+// close modal after click on overlay 
 
 document.querySelector('#modal-overlay').addEventListener('click', hideModal);
 
@@ -240,12 +240,14 @@ function reset() {
 
 function winner() {
     if (params.userScore === params.roundAsk) {
-      params.gameScore.innerHTML = ('YOU WON THE ENTIRE GAME!!!');
+      //params.gameScore.innerHTML = ('YOU WON THE ENTIRE GAME!!!');
       showModal();
+      params.gameScore.innerHTML = ('YOU WON THE ENTIRE GAME!!!');
 
     } else if (params.computerScore === params.roundAsk) {
-      params.gameScore.innerHTML = ('YOU LOSE THE ENTIRE GAME!!!');
+      //
       showModal();
+      params.gameScore.innerHTML = ('YOU LOSE THE ENTIRE GAME!!!');
     }
 }
 
