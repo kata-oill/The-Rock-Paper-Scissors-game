@@ -37,11 +37,11 @@ function win (userMove, computerMove) {
 function lose (userMove, computerMove) {
   params.computerScore++;
   params.computerScore_span.innerHTML = params.computerScore;
-  params.result_p.innerHTML = ' YOU PLAYED: ' + params.userMove + ' COMPUTER PLAYED: ' + params.computerMove + '. YOU LOSE!';
+  params.result_p.innerHTML = ' YOU PLAYED: ' + userMove + ' COMPUTER PLAYED: ' + computerMove + '. YOU LOSE!';
 }
 
 function draw (userMove, computerMove) {
-  params.result_p.innerHTML = ' YOU PLAYED: ' + params.userMove + ' COMPUTER PLAYED: ' + params.computerMove + '. ITS A DRAW!';
+  params.result_p.innerHTML = ' YOU PLAYED: ' + userMove + ' COMPUTER PLAYED: ' + computerMove + '. ITS A DRAW!';
 }
 
 // function comparing player's move to the computer's move
@@ -93,7 +93,7 @@ function gameover() {
       params.gameScore.innerHTML = ('Game over, please press the new game button!');
 }
 
-
+/*
 // function with user's moves
 
 
@@ -144,11 +144,32 @@ function main() {
 }
 
 main();
+*/
+
+// new function with user move
 
 
 
+var playerButtons = document.querySelectorAll('.player-move');
 
+for (var i = 0; i < playerButtons.length; i++) {
 
+  var dataMove = playerButtons[i].getAttribute('data-move');
+
+  playerButtons[i].addEventListener('click', function(){
+    if(params.gameStatus == 0) {
+      alert('Click the button below to start the game!');
+    }
+    else {
+      if (params.userScore === params.roundAsk || params.computerScore === params.roundAsk) {
+        gameover();
+      }
+      else {
+        playerMove(dataMove);
+      }  
+    } 
+  })
+};
 
 
 // function asking user about number of rounds
@@ -186,10 +207,28 @@ function reset() {
 function winner() {
     if (params.userScore === params.roundAsk) {
       params.gameScore.innerHTML = ('YOU WON THE ENTIRE GAME!!!');
+      showModal();
 
     } else if (params.computerScore === params.roundAsk) {
       params.gameScore.innerHTML = ('YOU LOSE THE ENTIRE GAME!!!');
+      showModal();
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
