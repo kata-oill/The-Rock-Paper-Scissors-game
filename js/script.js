@@ -171,6 +171,40 @@ for (var i = 0; i < playerButtons.length; i++) {
   })
 };
 
+// show overlay & modal
+
+var showModal = function(){
+  event.preventDefault();
+  
+  document.querySelector('#modal-overlay').classList.add('show'); 
+  document.querySelector('.modal').classList.add('show');
+}
+
+// hide modal
+
+var hideModal = function(){
+  event.preventDefault();
+  document.querySelector('#modal-overlay').classList.remove('show');
+};
+
+var closeButtons = document.querySelectorAll('.modal .close');
+
+for(var i = 0; i < closeButtons.length; i++){
+  closeButtons[i].addEventListener('click', hideModal);
+}
+
+// close modal after click on overlay. 
+
+document.querySelector('#modal-overlay').addEventListener('click', hideModal);
+
+var modals = document.querySelectorAll('.modal');
+  
+  for(var i = 0; i < modals.length; i++){
+    modals[i].addEventListener('click', function(){
+      event.stopPropagation();
+    });
+  }
+
 
 // function asking user about number of rounds
 
