@@ -110,59 +110,6 @@ function gameover() {
   params.gameScore.innerHTML = ('Game over, please press the new game button!');
 }
 
-/*
-// function with user's moves
-
-
-function main() {
-  console.log('MAIN');
-  params.rock_div.addEventListener('click', function() {
-    if(params.gameStatus == 0){
-      alert('Click the button below to start the game!');
-    }
-    else{
-      if (params.userScore === params.roundAsk || params.computerScore === params.roundAsk) {
-        gameover();
-      }
-      else {
-        playerMove('rock');
-      }
-     } 
-  })
-
-  params.paper_div.addEventListener('click', function() {
-    if(params.gameStatus == 0){
-      alert('Click the button below to start the game!');
-    }
-    else{
-      if (params.userScore === params.roundAsk || params.computerScore === params.roundAsk) {
-      gameover();
-      }
-      else {
-      playerMove('paper');
-      }
-    }
-    
-  })
-
-  params.scissors_div.addEventListener('click', function() {
-    if(params.gameStatus == 0){
-      alert('Click the button below to start the game!');
-    }
-    else {
-      if (params.userScore === params.roundAsk || params.computerScore === params.roundAsk) {
-        gameover();
-      }
-      else {
-      playerMove('scissors');
-      }
-    }
-  })
-}
-
-main();
-*/
-
 // new function with user move
 
 
@@ -183,10 +130,6 @@ for (let i = 0; i < playerButtons.length; i++) {
       }
       else {
         playerMove(dataMove);
-        console.log('round ask: %s,',params.roundAsk);
-        console.log('computer score: %s,',params.computerScore);
-        console.log('user score: %s,',params.userScore);
-        console.log('game status: %s,',params.gameStatus);
       }  
     }
   })
@@ -239,28 +182,9 @@ var modals = document.querySelectorAll('.modal');
 let table = document.querySelector("table");
 let data = Object.keys(params.progress[0]);
 
-  // table head
-
-/*
-
-function generateTableHead(table, data) {
-  console.log('generateTableHead');
-  let thead = table.createTHead();
-  let row = thead.insertRow();
-  for (let key of data) {
-    let th = document.createElement("th");
-    let text = document.createTextNode(key);
-    th.appendChild(text);
-    row.appendChild(th);
-  }
-}
-
-*/
-
-// table body
+  // table body
 
 function generateTable(table, data) {
-  console.log('generateTable');
   for (let element of data) {
     let row = table.insertRow();
     for (let key in element) {
@@ -292,8 +216,6 @@ params.newGame_div.addEventListener('click', function() {
 function reset() {
     params.userScore = 0;
     params.computerScore = 0;
-
-  console.log('Reset');
     params.userScore_span.innerHTML = params.userScore;
     params.computerScore_span.innerHTML = params.computerScore;
     params.result_p.innerHTML = ('Lets start the game!');
@@ -307,15 +229,12 @@ function winner() {
     if (params.userScore === params.roundAsk) {
       showModal();
       params.gameScore.innerHTML = ('YOU WON THE ENTIRE GAME!!!');
-      //generateTableHead(table, data);
       generateTable(table, params.progress);
       
 
     } else if (params.computerScore === params.roundAsk) {
-      //
       showModal();
       params.gameScore.innerHTML = ('YOU LOSE THE ENTIRE GAME!!!');
-      //generateTableHead(table, data);
       generateTable(table, params.progress);
       
     }
