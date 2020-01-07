@@ -181,4 +181,7 @@ button:hover, button:active {
     font-family: "Noto Sans JP";
     min-height: 30px;
     padding: 5px 30px; }
+
+tr {
+  text-align: center; }
 /*# sourceMappingURL=style.css.map */
