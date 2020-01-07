@@ -182,6 +182,11 @@ button:hover, button:active {
     min-height: 30px;
     padding: 5px 30px; }
 
-tr {
-  text-align: center; }
+table {
+  padding: 15px; }
+  table tr {
+    text-align: center;
+    pdding: 5px; }
+    table tr:nth-child(2) {
+      display: none; }
 /*# sourceMappingURL=style.css.map */

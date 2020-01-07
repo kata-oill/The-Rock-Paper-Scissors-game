@@ -185,10 +185,17 @@ button:hover, button:active {
 		padding: 5px 30px;
 	}
 }
-tr {
-	text-align: center;
-}
+table {
+	padding: 15px;
+	tr {
+		text-align: center;
+		pdding: 5px;
 
+		&:nth-child(2) {
+			display: none;
+		}
+	}
+}
 
 
 
