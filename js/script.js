@@ -14,25 +14,11 @@ var params = {
   scissors_div: document.getElementById('scissors'),
   newGame_div: document.getElementById('new-game'),
   roundAsk: '',
+  roundNumber: 0,
   gameStatus: 0,
   roundInfo: document.getElementById('round-number'),
   gameScore: document.getElementById('score-message'),
-  progress: [
-    {     
-      roundnumber: '1', 
-      playermove: 'scissors', 
-      computermove: 'rock',
-      roundscore: '0-1',
-      gamescore: '2-1'
-    },
-    { 
-      roundnumber: '1', 
-      playermove: 'scissors', 
-      computermove: 'rock',
-      roundscore: '0-1',
-      gamescore: '2-1'
-    }
-  ]
+  progress: []
 }
 
 function getComputerChoice() {
@@ -64,46 +50,64 @@ function draw (userMove, computerMove) {
 function playerMove (userChoice) {
   const computerChoice = getComputerChoice();
 
+  let playerWin = '';
 
   if (userChoice === computerChoice) {
       draw(userChoice, computerChoice);
+      playerWin = 'Draw';
   }
   else if (userChoice === 'paper'){
     if (computerChoice === 'rock') {
         win(userChoice, computerChoice);
+        playerWin = 'User';
     }
     else if (computerChoice === 'scissors') {
         lose(userChoice, computerChoice);
+        playerWin = 'Computer';
     }
   }
   else if (userChoice === 'rock') {
     if (computerChoice === 'paper') {
         lose(userChoice, computerChoice);
+        playerWin = 'Computer';
     }
     else if (computerChoice === 'scissors') {
         win(userChoice, computerChoice);
+        playerWin = 'User';
     }
   }
   else if (userChoice === 'scissors') {
     if (computerChoice === 'paper') {
         win(userChoice, computerChoice);
+        playerWin = 'User';
     }
     else if (computerChoice === 'rock') {
         lose(userChoice, computerChoice);
+        playerWin = 'Computer';
     }
   }
+
+  let move = {
+    roundnumber: params.roundNumber, 
+    playermove: userChoice, 
+    computermove: computerChoice,
+    roundscore: playerWin,
+    gamescore: params.userScore + '-' + params.computerScore
+  };
+  params.roundNumber++;
+  params.progress.push(move);
   winner();
 }
 
 playerMove();
 
-
 // function removing the strings
 
 function gameover() {
-      params.result_p.innerHTML = ('');
-      params.roundInfo.innerHTML = ('');
-      params.gameScore.innerHTML = ('Game over, please press the new game button!');
+  params.gameStatus = 0;
+  params.result_p.innerHTML = ('');
+  params.roundInfo.innerHTML = ('');
+  params.gameScore.innerHTML = ('Game over, please press the new game button!');
 }
 
 /*
@@ -162,12 +166,12 @@ main();
 // new function with user move
 
 
-
 var playerButtons = document.querySelectorAll('.player-move');
 
-for (var i = 0; i < playerButtons.length; i++) {
 
-  var dataMove = playerButtons[i].getAttribute('data-move');
+for (let i = 0; i < playerButtons.length; i++) {
+
+  let dataMove = playerButtons[i].getAttribute('data-move');
 
   playerButtons[i].addEventListener('click', function(){
     if(params.gameStatus == 0) {
@@ -179,10 +183,16 @@ for (var i = 0; i < playerButtons.length; i++) {
       }
       else {
         playerMove(dataMove);
+        console.log('round ask: %s,',params.roundAsk);
+        console.log('computer score: %s,',params.computerScore);
+        console.log('user score: %s,',params.userScore);
+        console.log('game status: %s,',params.gameStatus);
       }  
-    } 
+    }
   })
 };
+
+
 
 // show overlay & modal
 
@@ -198,13 +208,18 @@ var showModal = function(){
 var hideModal = function(){
   event.preventDefault();
   document.querySelector('#modal-overlay').classList.remove('show');
+  gameover();
+  reset(); 
 };
+
 
 var closeButtons = document.querySelectorAll('.modal .close');
 
 for(var i = 0; i < closeButtons.length; i++){
   closeButtons[i].addEventListener('click', hideModal);
+  closeButtons[i].addEventListener('click', reset());
 }
+
 
 // close modal after click on overlay 
 
@@ -218,10 +233,15 @@ var modals = document.querySelectorAll('.modal');
     });
   }
 
+
 // generate table with scores
 
 let table = document.querySelector("table");
 let data = Object.keys(params.progress[0]);
+
+  // table head
+
+/*
 
 function generateTableHead(table, data) {
   console.log('generateTableHead');
@@ -235,11 +255,15 @@ function generateTableHead(table, data) {
   }
 }
 
+*/
+
+// table body
+
 function generateTable(table, data) {
   console.log('generateTable');
   for (let element of data) {
     let row = table.insertRow();
-    for (key in element) {
+    for (let key in element) {
       let cell = row.insertCell();
       let text = document.createTextNode(element[key]);
       cell.appendChild(text);
@@ -281,10 +305,9 @@ function reset() {
 
 function winner() {
     if (params.userScore === params.roundAsk) {
-      //params.gameScore.innerHTML = ('YOU WON THE ENTIRE GAME!!!');
       showModal();
       params.gameScore.innerHTML = ('YOU WON THE ENTIRE GAME!!!');
-      generateTableHead(table, data);
+      //generateTableHead(table, data);
       generateTable(table, params.progress);
       
 
@@ -292,11 +315,12 @@ function winner() {
       //
       showModal();
       params.gameScore.innerHTML = ('YOU LOSE THE ENTIRE GAME!!!');
-      generateTableHead(table, data);
+      //generateTableHead(table, data);
       generateTable(table, params.progress);
       
     }
 }
+
 
 
 
