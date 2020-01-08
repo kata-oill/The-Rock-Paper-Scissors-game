@@ -152,6 +152,7 @@ var hideModal = function(){
   event.preventDefault();
   document.querySelector('#modal-overlay').classList.remove('show');
   gameover();
+  location.reload();
   reset(); 
 };
 
@@ -160,7 +161,6 @@ var closeButtons = document.querySelectorAll('.modal .close');
 
 for(var i = 0; i < closeButtons.length; i++){
   closeButtons[i].addEventListener('click', hideModal);
-  closeButtons[i].addEventListener('click', reset());
 }
 
 
