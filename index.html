@@ -5,7 +5,7 @@
 	<title>Rock Paper Scissors</title>
 	<link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:300,400,700,900" rel="stylesheet">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" type="text/css" href="./css/style.css">
 </head>
 <body>
 	<header>
@@ -24,26 +24,53 @@
 	</div>
 
 	<div class="choices">
-		<div id="rock" class="choice">
+		<div id="rock" class="choice player-move" data-move="rock">
 	        <i class="far fa-hand-rock"></i>
 	        <h3>Rock</h3>
 	    </div>
-		<div id="paper" class="choice">
+		<div id="paper" class="choice player-move" data-move="paper">
 			<i class="far fa-hand-paper"></i>
 	        <h3>Paper</h3>
 	    </div>
-	    <div id="scissors" class="choice">
+	    <div id="scissors" class="choice player-move" data-move="scissors">
 	        <i class="far fa-hand-scissors"></i>
 	        <h3>Scissors</h3>
 	     </div>
 	</div>
 
 
-	<p id="score-message" class="score-message">Click the button below to start the game!</p>
+	<!--- <p id="score-message" class="score-message">Click the button below to start the game!</p> --->
 
 	<div class="button">
 		<button id="new-game">Start a new game!</button>
 	</div>
-	<script type="text/javascript" src="scripts.js"></script>
+
+	<div class="overlay" id="modal-overlay">
+  
+		<div class="modal" id="modal-one">
+			<a href="#" class="close">X</a>
+			<header>GAME OVER</header>
+			<div class="content">
+				<div class="progress">
+					<p id="score-message" class="score-message">Click the button below to start the game!</p>
+			        <table id="modal-table">
+			        	<thead>
+						    <tr>
+						        <th>Round number</th>
+						        <th>Player move</th>
+						        <th>Computer move</th>
+						        <th>Round score</th>
+						        <th>Game score</th>
+						    </tr>
+						</thead>
+			        	<!-- here goes data -->
+		        	</table>
+		      </div>
+			</div>
+		</div>
+  
+	</div>
+
+	<script type="text/javascript" src="./js/script.js"></script>
 </body>
 </html>
