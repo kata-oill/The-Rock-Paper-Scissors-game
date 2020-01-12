@@ -14,7 +14,7 @@ var params = {
   scissors_div: document.getElementById('scissors'),
   newGame_div: document.getElementById('new-game'),
   roundAsk: '',
-  roundNumber: 0,
+  roundNumber: 1,
   gameStatus: 0,
   roundInfo: document.getElementById('round-number'),
   gameScore: document.getElementById('score-message'),
@@ -94,12 +94,11 @@ function playerMove (userChoice) {
     roundscore: playerWin,
     gamescore: params.userScore + '-' + params.computerScore
   };
+
   params.roundNumber++;
   params.progress.push(move);
   winner();
 }
-
-playerMove();
 
 // function removing the strings
 
@@ -111,7 +110,6 @@ function gameover() {
 }
 
 // new function with user move
-
 
 var playerButtons = document.querySelectorAll('.player-move');
 
@@ -135,8 +133,6 @@ for (let i = 0; i < playerButtons.length; i++) {
   })
 };
 
-
-
 // show overlay & modal
 
 var showModal = function(){
@@ -152,7 +148,6 @@ var hideModal = function(){
   event.preventDefault();
   document.querySelector('#modal-overlay').classList.remove('show');
   gameover();
-  location.reload();
   reset(); 
 };
 
@@ -179,12 +174,10 @@ var modals = document.querySelectorAll('.modal');
 
 // generate table with scores
 
-let table = document.querySelector("table");
-let data = Object.keys(params.progress[0]);
+function generateTable(data) {
 
-  // table body
+let table = document.querySelector("tbody");
 
-function generateTable(table, data) {
   for (let element of data) {
     let row = table.insertRow();
     for (let key in element) {
@@ -193,6 +186,15 @@ function generateTable(table, data) {
       cell.appendChild(text);
     }
   }
+}
+
+// clear table
+
+function clearTable() {
+  let tableRef = document.querySelector('tbody');
+    while ( tableRef.rows.length > 0 ) {
+    tableRef.deleteRow(0);
+    }
 }
 
 // function asking user about number of rounds
@@ -216,12 +218,14 @@ params.newGame_div.addEventListener('click', function() {
 function reset() {
     params.userScore = 0;
     params.computerScore = 0;
+    params.progress = [];
+    params.roundNumber = 1;
     params.userScore_span.innerHTML = params.userScore;
     params.computerScore_span.innerHTML = params.computerScore;
     params.result_p.innerHTML = ('Lets start the game!');
     params.gameScore.innerHTML = ('');
+    clearTable();
 }
-
 
 // entire game winner function
 
@@ -229,13 +233,13 @@ function winner() {
     if (params.userScore === params.roundAsk) {
       showModal();
       params.gameScore.innerHTML = ('YOU WON THE ENTIRE GAME!!!');
-      generateTable(table, params.progress);
+      generateTable(params.progress);
       
 
     } else if (params.computerScore === params.roundAsk) {
       showModal();
       params.gameScore.innerHTML = ('YOU LOSE THE ENTIRE GAME!!!');
-      generateTable(table, params.progress);
+      generateTable(params.progress);
       
     }
 }
